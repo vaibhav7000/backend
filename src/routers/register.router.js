@@ -8,9 +8,7 @@ const router = express.Router();
 router.post('/', async(req,res) => {
   const userData = req.body;
   const isExist = await user.find({email : userData.email});
-  if(isExist){
-    return res.status(200).json(false);
-  }
+  
   if(userData.name && userData.email && userData.password){
     try {
       const salt = await bycrypt.genSalt(10);
