@@ -7,7 +7,10 @@ const router = express.Router();
 
 router.post('/', async(req,res) => {
   const userData = req.body;
-  const isExist = await user.find({email : userData.email});
+  const isExist = await user.findOne({email : userData.email});
+  if(Object.keys(isExist).length > 0){
+    return res.status(200).send({userExist : true});
+  }
   
   if(userData.name && userData.email && userData.password){
     try {
